@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+
 
 export default function Users(){
     const loadedUsers = useLoaderData();
@@ -7,7 +8,7 @@ export default function Users(){
 
     const handleDelete=(_id)=>{
         console.log(_id);
-        fetch(`http://localhost:5000/users/${_id}`,{
+        fetch(`http://localhost:5001/users/${_id}`,{
             method:'DELETE',
 
         })
@@ -29,6 +30,7 @@ export default function Users(){
             <div>
                 {
                     users.map(user=><p key={user._id}>{user.name}:{user.email}
+                    <Link to={`/update/${user._id}`}><button>Update</button></Link>
                     <button onClick={()=>handleDelete(user._id)}>X</button></p>)
                 }
             </div>
